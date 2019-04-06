@@ -156,9 +156,11 @@ MonoBehaviour:
   mouseOver: {r: 0.4056604, g: 0.4056604, b: 0.4056604, a: 0}
   wallColor: {r: 0.13207549, g: 0.080366686, b: 0.080366686, a: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
+  wallCost: 100
+  flatCost: 10
   isWall: 0
   speed: 0.05
   priceForWall: 100
-  towerRange: {fileID: 0}
   towerPivot: {fileID: 1338328293424575366}
   towerOnField: {fileID: 0}
+  pd: {fileID: 0}

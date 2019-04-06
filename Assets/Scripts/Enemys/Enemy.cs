@@ -27,12 +27,12 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
         maxHealth = health;
         agent = GetComponent<NavMeshAgent>();
         normalSpeed = agent.speed;
+        InvokeRepeating("CheckIfGoalReached", 1, 0.1f);
     }
 
     virtual protected void Update()
     {
         SetDestination();
-        CheckIfGoalReached();
         
 
         //healthbar.transform.LookAt(Camera.main.transform);
@@ -59,8 +59,7 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
 
     protected void CheckIfGoalReached()
     {
-        distanceToEnd = Vector3.Distance(transform.position, destination.position);
-        if (distanceToEnd <= 1f)
+        if (agent.remainingDistance < 1f)
         {
             GameManager.currentLifes -= 1;
             Destroy(gameObject);

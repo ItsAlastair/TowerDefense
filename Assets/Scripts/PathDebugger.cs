@@ -12,20 +12,12 @@ public class PathDebugger : MonoBehaviour
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        InvokeRepeating("CheckPath", 0, 1);
+        enemyPath.destination = goal.position;
     }
 
     private void Update()
     {
-        if (enemyPath.path.status == NavMeshPathStatus.PathPartial)
-        {
-            GameManager.readyForWave = false;
-            Debug.LogError("Kein Endziel erreichbar");
-        }
-        else
-        {
-            GameManager.readyForWave = true;
-        }
+        CheckPath();
 
         if (enemyPath.hasPath)
         {
@@ -39,8 +31,22 @@ public class PathDebugger : MonoBehaviour
         }
     }
 
-    void CheckPath()
+    public bool CheckPath()
     {
-        enemyPath.destination = goal.position;
+
+        if (enemyPath.path.status != NavMeshPathStatus.PathComplete)
+        {
+            GameManager.readyForWave = false;
+            PanelHolder.panelHolder.StopAllCoroutines();
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "YOU BLOCKED THE ENEMY PATH! \n BREAK 1 WALL FOR FREE, IDIOT!");
+            return false;
+        }
+        else
+        {
+            GameManager.readyForWave = true;
+            return true;
+        }
+
+        
     }
 }

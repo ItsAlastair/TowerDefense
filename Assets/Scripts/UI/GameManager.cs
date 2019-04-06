@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public int startCoins = 200;
     public static int currentCoins = 0;
     public int startLifes = 10;
-    public static int currentLifes = 0;
+    public static int currentLifes = 1;
     public int UPoints = 0;
 
     [Header("Spawner")]
@@ -22,10 +22,15 @@ public class GameManager : MonoBehaviour
     public static bool readyForWave = true;
     public static bool inWave = false;
 
+    [Header("Texts")]
     public Text stage_T;
     public Text coins_T;
     public Text lifes_T;
-    public Text wave_T;
+    public Text countdown_T;
+    public Text warning_T;
+
+    [Header("Sounds")]
+    public AudioSource BGM;
 
     private void Awake()
     {
@@ -42,15 +47,17 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (spawner == null)
-        {
-            spawner = FindObjectOfType<Spawner>();
-            return;
-        }
-        wave_T.text = string.Format("{0:00.00}", spawner.countdown);
+        if (spawner == null) spawner = FindObjectOfType<Spawner>();
+        
+        //if(spawner.useCountdown) countdown_T.text = string.Format("{0:00.00}", spawner.countdown);
         stage_T.text = "Stage: " + currentStage.ToString();
         coins_T.text = "Coins: " + currentCoins.ToString();
         lifes_T.text = "Lifes: " + currentLifes.ToString();
+
+        if(currentLifes <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void SetStats()
@@ -73,13 +80,21 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Destination Goal cannot be reached // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "YOU ARE IN A FIGHT!");
         }
+    }
+
+    void GameOver()
+    {
+        Time.timeScale = 0;
+        PanelHolder.panelHolder.gameOverPanel.SetActive(true);
     }
 
 
     public void Restart()
     {
+        PanelHolder.ClosePanels();
+        PanelHolder.panelHolder.statsPanel.SetActive(true);
         SetStats();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }

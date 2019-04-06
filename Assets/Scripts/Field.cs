@@ -21,7 +21,10 @@ public class Field : MonoBehaviour
 
     [Header("Tower")]
     [SerializeField] private Transform towerPivot = null;
-    public Tower towerOnField = null;  
+    public Tower towerOnField = null;
+
+    [Header("PathDebugger")]
+    PathDebugger pd;
 
     private void Start()
     {
@@ -29,6 +32,7 @@ public class Field : MonoBehaviour
         normalColor = GetComponent<Renderer>().material.color;
         flatPos = transform.position;
         wallPos = transform.position + Vector3.up * 1.5f;
+        pd = FindObjectOfType<PathDebugger>();
     }
 
     private void Update()
@@ -41,11 +45,19 @@ public class Field : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, flatPos, speed);
         }
+
+        while (!pd.CheckPath())
+        {
+            //Display Error Text to destroy a Wall
+            flatCost = 0;
+            return;
+        }
+        flatCost = 100;
     }
 
     public void MakeWall()
     {
-        if(GameManager.currentCoins >= wallCost)
+        if (GameManager.currentCoins >= wallCost)
         {
             GameManager.currentCoins -= wallCost;
             isWall = true;
@@ -53,7 +65,7 @@ public class Field : MonoBehaviour
         }
         else
         {
-            Debug.LogError("not enough money for Wall // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "NO MONEY FOR A WALL");
         }
     }
 
@@ -68,7 +80,7 @@ public class Field : MonoBehaviour
         }
         else
         {
-            Debug.LogError("not enough money for Flat // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "NO MONEY FOR FLAT LANDS");
         }
     }
 

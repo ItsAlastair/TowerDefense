@@ -56,7 +56,7 @@ public class FieldMenu : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Field is not a Wall yet // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "YOU WANT TO BUILD ON THE FLOOR?");
         }
         
     }
@@ -71,7 +71,7 @@ public class FieldMenu : MonoBehaviour
         }
         else
         {
-            Debug.LogError("not enough money // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "NO MONEY FOR THIS TOWER!");
         }
     }
 }

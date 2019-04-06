@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Rocket : Bullet
 {
+    public GameObject exploEffect;
+    public AudioSource exploSound;
+
     protected override void HitTarget()
     {
         LayerMask enemyLayer = LayerMask.GetMask("Enemy");
-        //Instantiate(exploeffect, transform.position + Vector3.up / 2, Quaternion.identity);
+        exploSound.Play();
+        Instantiate(exploEffect, transform.position, Quaternion.identity);
+        
 
         Collider[] enemys = Physics.OverlapSphere(transform.position, exploRange, enemyLayer);
 
@@ -15,6 +20,8 @@ public class Rocket : Bullet
         {
             enemy.GetComponent<Enemy>().GetDamage(damage);
         }
-        Destroy(gameObject);
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        Destroy(gameObject,1f);
+        enabled = false;
     }
 }

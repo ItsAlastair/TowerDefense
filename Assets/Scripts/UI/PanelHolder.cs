@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PanelHolder : MonoBehaviour
@@ -20,6 +21,12 @@ public class PanelHolder : MonoBehaviour
     [Header("TowerStats")]
     public GameObject towerStats;
 
+    [Header("Warnings")]
+    public GameObject warningPanel;
+
+    [Header("GameOver")]
+    public GameObject gameOverPanel;
+
     List<GameObject> allPanels = new List<GameObject>();
 
     private void Awake()
@@ -32,7 +39,7 @@ public class PanelHolder : MonoBehaviour
     {
         
 
-        for (int i = 2; i < transform.childCount; i++)
+        for (int i = 3; i < transform.childCount; i++)
         {
             allPanels.Add(transform.GetChild(i).gameObject);
             Debug.Log(transform.GetChild(i).name + " wurde hinzugefügt");
@@ -46,5 +53,13 @@ public class PanelHolder : MonoBehaviour
             go.SetActive(false);
             FindObjectOfType<FieldManager>().MouseOverUI = false;
         }
+    }
+
+    public IEnumerator WarningText(string message)
+    {
+        warningPanel.SetActive(true);
+        GameManager.GM.warning_T.text = message;
+        yield return new WaitForSeconds(3f);
+        warningPanel.SetActive(false);
     }
 }

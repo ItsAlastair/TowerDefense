@@ -31,6 +31,9 @@ public class Tower : MonoBehaviour
     public LineRenderer laser1;
     public LineRenderer laser2;
 
+    [Header("Sounds")]
+    public AudioSource shotSound;
+
     [Header("Rotation")]
     public Transform rotationPart;
     public float turnSpeed = 10;
@@ -65,10 +68,10 @@ public class Tower : MonoBehaviour
     virtual protected void Update()
     {
         SetRangeSize();
+        ShootCooldown();
 
         if (target == null) return;
         RotateToEnemy();
-        ShootCooldown();
 
     }
 
@@ -123,10 +126,15 @@ public class Tower : MonoBehaviour
 
     protected void ShootCooldown()
     {
-        if (fireCountdown <= 0f)
+        if (fireCountdown <= 0f && target != null)
         {
             StartCoroutine(Shoot());
             fireCountdown = 1f / fireRate;
+        }
+        if (fireCountdown <= 0)
+        {
+            fireCountdown = 0;
+            return;
         }
         fireCountdown -= Time.deltaTime;
     }
@@ -138,6 +146,7 @@ public class Tower : MonoBehaviour
         bullet.Seek(target.transform);
         bullet.damage = damage;
         bullet.exploRange = exploRange;
+        shotSound.Play();
         //mf_light.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         //mf_light.SetActive(false);

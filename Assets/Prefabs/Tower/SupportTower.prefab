@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2967968992978566546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.102, y: 3.43, z: -0.015}
+  m_LocalPosition: {x: 0, y: 3.43, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 378480380104104504}
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
-  damage: 2
+  damage: 1.2
   range: 5
   exploRange: 2
   fireRate: 1
@@ -369,6 +369,7 @@ MonoBehaviour:
   firePoint2: {fileID: 0}
   laser1: {fileID: 0}
   laser2: {fileID: 0}
+  shotSound: {fileID: 0}
   rotationPart: {fileID: 0}
   turnSpeed: 10
   towerRange: {fileID: 4801223186350159131}

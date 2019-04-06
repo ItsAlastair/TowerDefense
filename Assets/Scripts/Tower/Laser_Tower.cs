@@ -30,6 +30,7 @@ public class Laser_Tower : Tower
         {
             laser1.enabled = false;
             laser2.enabled = false;
+            shotSound.Stop();
             return;
         }
 
@@ -39,6 +40,7 @@ public class Laser_Tower : Tower
         laser2.SetPosition(1, target.transform.position);
         laser1.enabled = true;
         laser2.enabled = true;
+        shotSound.Play();
 
         target.GetDamage(damage / 2);
     }

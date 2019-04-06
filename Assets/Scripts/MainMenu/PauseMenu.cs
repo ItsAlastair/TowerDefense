@@ -41,7 +41,10 @@ public class PauseMenu : MonoBehaviour
     public void BackToMenu()
     {
         pause = false;
+        GameManager.GM.BGM.Stop();
         GameManager.GM.levelSize = 0;
+        PanelHolder.panelHolder.statsPanel.SetActive(false);
+        PanelHolder.ClosePanels();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 

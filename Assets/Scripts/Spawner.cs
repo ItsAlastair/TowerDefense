@@ -18,6 +18,10 @@ public class Spawner : MonoBehaviour
     [Header("EnemyList")]
     public GameObject[] enemys;
 
+    [Header("DifficultyLevel")]
+    [SerializeField] private int wavesToNextLevel = 10;
+    private int currentLevel = 1;
+
     private void Start()
     {
         waveIndex = GameManager.currentStage;
@@ -31,6 +35,12 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        if(waveIndex >= wavesToNextLevel)
+        {
+            wavesToNextLevel += 10;
+            currentLevel++;
+        }
+
         if (useCountdown && !inWave && GameManager.readyForWave)
         {
             if (countdown < 0)
@@ -56,7 +66,7 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < waveIndex; i++)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.5f);
         }
        // PlayerStats.credits++;
     }
@@ -64,16 +74,12 @@ public class Spawner : MonoBehaviour
     void SpawnEnemy()
     {
         //spawneffect.Play();
-        int bosschance = Random.Range(Mathf.Clamp(waveIndex, 0, 100), 101);
+        //int bosschance = Random.Range(Mathf.Clamp(waveIndex, 0, 100), 101);
+        //if (bosschance > 99) Instantiate(enemys[2], spawnPos.position, Quaternion.identity);
 
-        if (bosschance > 99) Instantiate(enemys[2], spawnPos.position, Quaternion.identity); //Boss
-        else Instantiate(enemys[Random.Range(0, 2)], spawnPos.position, Quaternion.identity);
-
-
-
-        //index 0,1 bei Enemys sind creeps
-        //index 2 ist ein Boss
-        //mit jeder Wave erhöht sich die chance auf einen Boss.
+        GameObject GO = Instantiate(enemys[Random.Range(0, 2)], spawnPos.position, Quaternion.identity);
+        Enemy GO_E = GO.GetComponent<Enemy>();
+        GO_E.health *= currentLevel;
     }
 
     void ScanForEnemys()
