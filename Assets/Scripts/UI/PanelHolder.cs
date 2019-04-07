@@ -42,7 +42,6 @@ public class PanelHolder : MonoBehaviour
         for (int i = 3; i < transform.childCount; i++)
         {
             allPanels.Add(transform.GetChild(i).gameObject);
-            Debug.Log(transform.GetChild(i).name + " wurde hinzugefügt");
         }
     }
 

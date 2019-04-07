@@ -32,7 +32,7 @@ public class TowerMenu : MonoBehaviour
         }
         else
         {
-            Debug.LogError("not enough money for TowerUpgrade // Display Error on Screen or gray out this Button");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "NOT ENOUGH MONEY FOR UPGRADE!");
         }
     }
 

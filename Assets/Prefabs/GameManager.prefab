@@ -394,12 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausenPanel: {fileID: 6840326514779894470}
+  optionsPanel: {fileID: 8366876996833326681}
 --- !u!114 &111212438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +448,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMixer: {fileID: 24100000, guid: 68c136aed86ab1946aacb6a868269db2, type: 2}
+  mainSlider: {fileID: 591319774948545353}
+  effectSlider: {fileID: 767147202810645266}
+  BGMSlider: {fileID: 4968846016395867937}
 --- !u!1 &592225491154871996
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,17 +581,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6840326514779894470}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -1739,7 +1732,6 @@ GameObject:
   - component: {fileID: 2992104518957689164}
   - component: {fileID: 2992104518957689167}
   - component: {fileID: 2992104518957689163}
-  - component: {fileID: 5377259921560007412}
   m_Layer: 5
   m_Name: PanelHolder
   m_TagString: Untagged
@@ -1867,20 +1859,6 @@ MonoBehaviour:
   buildTowerButton: {fileID: 2992104520321630649}
   makeFlatButton: {fileID: 2992104520331755151}
   makeWallButton: {fileID: 2992104520009491568}
---- !u!114 &5377259921560007412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992104518957689162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91248cb14aa68ca46a44a09c42245fa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentTower: {fileID: 0}
-  attackFocus_Drop: {fileID: 8931772156184931452}
 --- !u!1 &2992104519023084966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2392,7 +2370,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5377259921560007412}
+      - m_Target: {fileID: 3594371590696905208}
         m_MethodName: SellTower
         m_Mode: 1
         m_Arguments:
@@ -4048,7 +4026,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5377259921560007412}
+      - m_Target: {fileID: 3594371590696905208}
         m_MethodName: UpgradeTower
         m_Mode: 1
         m_Arguments:
@@ -4541,6 +4519,7 @@ GameObject:
   - component: {fileID: 2992104520562742495}
   - component: {fileID: 2992104520562742493}
   - component: {fileID: 2992104520562742482}
+  - component: {fileID: 3594371590696905208}
   - component: {fileID: 37118104}
   m_Layer: 0
   m_Name: GameManager
@@ -4591,7 +4570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSize: 0
   startStage: 0
-  startCoins: 500
+  startCoins: 700
   startLifes: 10
   UPoints: 0
   spawner: {fileID: 0}
@@ -4619,6 +4598,20 @@ MonoBehaviour:
   fireRate_T: {fileID: 6799241949575870904}
   upgradeCost_T: {fileID: 4384546172447440029}
   refund_T: {fileID: 5968147767513494246}
+--- !u!114 &3594371590696905208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992104520562742494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dcca9c9a59a1cc4aa6d1f2849187c9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTower: {fileID: 0}
+  attackFocus_Drop: {fileID: 8931772156184931452}
 --- !u!82 &37118104
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4632,7 +4625,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 37bd074c993b87642849868655e93b3f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5395,7 +5388,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 252041545843215826}
   m_HandleRect: {fileID: 6364187058913658118}
   m_Direction: 0
-  m_MinValue: -80
+  m_MinValue: -40
   m_MaxValue: 0
   m_WholeNumbers: 1
   m_Value: 0
@@ -5642,7 +5635,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 8006177054233170606}
   m_HandleRect: {fileID: 7749345577856701271}
   m_Direction: 0
-  m_MinValue: -80
+  m_MinValue: -40
   m_MaxValue: 0
   m_WholeNumbers: 1
   m_Value: 0
@@ -6173,7 +6166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -6472,7 +6465,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5377259921560007412}
+      - m_Target: {fileID: 3594371590696905208}
         m_MethodName: ChangeAttackFocus
         m_Mode: 1
         m_Arguments:
@@ -7091,7 +7084,7 @@ GameObject:
   - component: {fileID: 7082143190305539718}
   - component: {fileID: 6054565057487684535}
   m_Layer: 5
-  m_Name: OPTIONS
+  m_Name: Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7209,16 +7202,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 6840326514779894470}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 111212438}
+        m_MethodName: SetSlider
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -8071,7 +8064,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1380125358294000870}
   m_HandleRect: {fileID: 5683642752562749001}
   m_Direction: 0
-  m_MinValue: -80
+  m_MinValue: -40
   m_MaxValue: 0
   m_WholeNumbers: 1
   m_Value: 0
@@ -8269,7 +8262,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8366876996833326681}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8307,7 +8300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5372549}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.83137256}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

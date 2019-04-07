@@ -33,8 +33,12 @@ public class FieldManager : MonoBehaviour
                 {
                     currentSelectedField = hitinfo.transform.GetComponent<Field>();
                     FindObjectOfType<FieldMenu>().CloseFieldMenu();
-
-                    if (currentSelectedField.towerOnField == null && !GameManager.inWave)
+                    if (GameManager.inWave && !currentSelectedField.isWall)
+                    {
+                        ClearTowerRange();
+                        return;
+                    }
+                    else if (currentSelectedField.towerOnField == null)
                     {
                         ClearTowerRange();
                         PanelHolder.ClosePanels();

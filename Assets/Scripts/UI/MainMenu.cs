@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         mainCam = Camera.main.transform;
+        PanelHolder.ClosePanels();
     }
 
     public void StartButton()

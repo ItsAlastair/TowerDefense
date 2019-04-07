@@ -15,11 +15,13 @@ public class Spawner : MonoBehaviour
     public bool useCountdown = false;
     bool inWave = false;
     
-    [Header("EnemyList")]
+    [Header("Enemy")]
     public GameObject[] enemys;
+    [SerializeField] private int wavesForExtraEnemy = 3;
+    private int currentEnemys = 1;
 
     [Header("DifficultyLevel")]
-    [SerializeField] private int wavesToNextLevel = 10;
+    [SerializeField] private int wavesToNextLevel = 20;
     private int currentLevel = 1;
 
     private void Start()
@@ -40,6 +42,11 @@ public class Spawner : MonoBehaviour
             wavesToNextLevel += 10;
             currentLevel++;
         }
+        if(waveIndex >= wavesForExtraEnemy)
+        {
+            wavesForExtraEnemy += 3;
+            currentEnemys++;
+        }
 
         if (useCountdown && !inWave && GameManager.readyForWave)
         {
@@ -59,25 +66,24 @@ public class Spawner : MonoBehaviour
     IEnumerator SpawnWave()
     {
         waveIndex++;
+
         GameManager.inWave = true;
         GameManager.currentStage = waveIndex;
         GameManager.GM.UPoints++;
         inWave = true;
-        for (int i = 0; i < waveIndex; i++)
+        for (int i = 0; i < currentEnemys; i++)
         {
             SpawnEnemy();
             yield return new WaitForSeconds(0.5f);
         }
-       // PlayerStats.credits++;
     }
 
     void SpawnEnemy()
     {
         //spawneffect.Play();
-        //int bosschance = Random.Range(Mathf.Clamp(waveIndex, 0, 100), 101);
-        //if (bosschance > 99) Instantiate(enemys[2], spawnPos.position, Quaternion.identity);
+        
 
-        GameObject GO = Instantiate(enemys[Random.Range(0, 2)], spawnPos.position, Quaternion.identity);
+        GameObject GO = Instantiate(enemys[Random.Range(0, enemys.Length -1)], spawnPos.position, Quaternion.identity);
         Enemy GO_E = GO.GetComponent<Enemy>();
         GO_E.health *= currentLevel;
     }

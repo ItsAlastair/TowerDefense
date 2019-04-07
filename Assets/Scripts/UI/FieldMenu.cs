@@ -19,6 +19,12 @@ public class FieldMenu : MonoBehaviour
             makeFlatButton.interactable = false;
             makeWallButton.interactable = true;
         }
+        else if (GameManager.inWave)
+        {
+            buildTowerButton.interactable = false;
+            makeFlatButton.interactable = true;
+            makeWallButton.interactable = false;
+        }
         else
         {
             buildTowerButton.interactable = true;

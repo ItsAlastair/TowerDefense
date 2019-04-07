@@ -16,15 +16,16 @@ public class Field : MonoBehaviour
     private Vector3 flatPos;
     private Vector3 wallPos;
 
-    [Header("Price for Wall")]
-    public int priceForWall = 100;
-
     [Header("Tower")]
     [SerializeField] private Transform towerPivot = null;
     public Tower towerOnField = null;
 
     [Header("PathDebugger")]
     PathDebugger pd;
+
+    [Header("Sounds")]
+    public AudioSource wallSound;
+    public AudioSource buildTowerSound;
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class Field : MonoBehaviour
 
         while (!pd.CheckPath())
         {
-            //Display Error Text to destroy a Wall
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "YOU BLOCKED THE WAY, IDIOT! \n DESTROY ONE FOR FREE");
             flatCost = 0;
             return;
         }
@@ -59,6 +60,7 @@ public class Field : MonoBehaviour
     {
         if (GameManager.currentCoins >= wallCost)
         {
+            wallSound.Play();
             GameManager.currentCoins -= wallCost;
             isWall = true;
             rend.material.color = wallColor;
@@ -74,6 +76,7 @@ public class Field : MonoBehaviour
         if (!isWall) return;
         if (GameManager.currentCoins >= flatCost)
         {
+            wallSound.Play();
             GameManager.currentCoins -= flatCost;
             isWall = false;
             rend.material.color = normalColor;
@@ -86,10 +89,9 @@ public class Field : MonoBehaviour
 
     public void BuildTowerOnField(Tower _tower)
     {
-
+        buildTowerSound.Play();
         GameObject tempTower = Instantiate(_tower.gameObject, towerPivot.position, Quaternion.identity);
         towerOnField = tempTower.GetComponent<Tower>();
-
     }
 
     #region MouseOver

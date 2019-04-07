@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
     void GameOver()
     {
         Time.timeScale = 0;
+        PanelHolder.ClosePanels();
         PanelHolder.panelHolder.gameOverPanel.SetActive(true);
     }
 

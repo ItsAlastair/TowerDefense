@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
     public float health;
     public int moneyForKill;
     private NavMeshAgent agent;
+    private PathDebugger pd;
     private float normalSpeed;
     public Transform destination;
     private float distanceToEnd;
@@ -20,12 +21,16 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
     public GameObject blutspritzer;
 
     [Header("De/Buffs")]
+    public bool invulnerable;
     public bool freeze;
+    
+
 
     virtual protected void Start()
     {
         maxHealth = health;
         agent = GetComponent<NavMeshAgent>();
+        pd = FindObjectOfType<PathDebugger>();
         normalSpeed = agent.speed;
         InvokeRepeating("CheckIfGoalReached", 1, 0.1f);
     }
@@ -33,7 +38,17 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
     virtual protected void Update()
     {
         SetDestination();
-        
+        if (!pd.CheckPath())
+        {
+            agent.isStopped = true;
+            invulnerable = true;
+            return;
+        }
+        else
+        {
+            agent.isStopped = false;
+            invulnerable = false;
+        }
 
         //healthbar.transform.LookAt(Camera.main.transform);
         //healthbar.GetComponentInChildren<Image>().fillAmount = health / maxHealth;
@@ -49,7 +64,7 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
         agent.CalculatePath(destination.position, path);
         if (path.status == NavMeshPathStatus.PathPartial)
         {
-            Debug.LogError("Kein Endziel erreichbar");
+            PanelHolder.panelHolder.StartCoroutine("WarningText", "ENEMY CANT REACH DESTINATION!");
         }
         else
         {
@@ -59,7 +74,8 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
 
     protected void CheckIfGoalReached()
     {
-        if (agent.remainingDistance < 1f)
+        
+        if (Vector3.Distance(transform.position, destination.position) < 4f)
         {
             GameManager.currentLifes -= 1;
             Destroy(gameObject);
@@ -68,6 +84,8 @@ public class Enemy : MonoBehaviour              //Main Class for all Enemys
 
     public void GetDamage(float _damage)
     {
+        if (invulnerable) return;
+
         health -= _damage;
 
         if (health <= 0)

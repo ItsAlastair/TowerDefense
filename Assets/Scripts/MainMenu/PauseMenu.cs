@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
 
     public GameObject pausenPanel;
+    public GameObject optionsPanel;
     private bool pause;
 
     private void Update()
@@ -24,6 +25,7 @@ public class PauseMenu : MonoBehaviour
         {
             Time.timeScale = 1;
             pausenPanel.SetActive(false);
+            optionsPanel.SetActive(false);
         }
     }
 
@@ -41,11 +43,12 @@ public class PauseMenu : MonoBehaviour
     public void BackToMenu()
     {
         pause = false;
+        GameManager.currentLifes += 1;
         GameManager.GM.BGM.Stop();
         GameManager.GM.levelSize = 0;
         PanelHolder.panelHolder.statsPanel.SetActive(false);
-        PanelHolder.ClosePanels();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+        PanelHolder.ClosePanels();
     }
 
 }

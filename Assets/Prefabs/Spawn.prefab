@@ -56,19 +56,19 @@ NavMeshAgent:
   m_GameObject: {fileID: 494373671063845276}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1
+  m_Radius: 0.5
   m_Speed: 0
-  m_Acceleration: 0
-  avoidancePriority: 99
-  m_AngularSpeed: 0
+  m_Acceleration: 8
+  avoidancePriority: 0
+  m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
-  m_BaseOffset: 0.5
+  m_BaseOffset: 1.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!120 &494373671063845278
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -254,16 +254,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 494373671180731915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5803d76bd08e2b047887e00a5d0bea2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 02ebdac219f8a674cbba25209826f15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waveIndex: 0
-  countdown: 0
+  countdown: 1
   spawnPos: {fileID: 494373672335825514}
   useCountdown: 0
   enemys:
-  - {fileID: 8745937461525778151, guid: 1b008d31bcb8aca4f93c7f064f3a070b, type: 3}
-  - {fileID: 8745937461525778151, guid: 1b008d31bcb8aca4f93c7f064f3a070b, type: 3}
   - {fileID: 8745937461525778151, guid: 1b008d31bcb8aca4f93c7f064f3a070b, type: 3}
   wavesToNextLevel: 10
 --- !u!65 &494373671180731956
